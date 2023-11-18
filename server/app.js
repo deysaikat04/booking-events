@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const graphqlHttp = require("express-graphql").graphqlHTTP;
 const dbConnect = require("./db/connect");
+const auth = require("./middleware/is-auth");
 
 const graphQlSchema = require("./graphql/schema");
 const graphQlResolvers = require("./graphql/resolvers");
@@ -13,6 +14,8 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send("hello there!!");
 });
+
+app.use(auth);
 
 app.use(
   "/graphql",
